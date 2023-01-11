@@ -1,0 +1,58 @@
+version: '3.5'
+
+services:
+  docker-service-app-web:
+    container_name: docker-service-app-web
+    build:
+      context: ./docker/nginx
+      args:
+        UID: $U_ID
+    ports:
+      - 1000:80
+    volumes:
+      - ./public:/appdata/www/public
+    depends_on:
+      - docker-service-app-be
+    networks:
+      - docker-service-app-network
+
+  docker-service-app-be:
+    container_name: docker-service-app-be
+    build:
+      context: docker/php
+      args:
+        UID: $U_ID
+    volumes:
+      - ./:/appdata/www
+    ###> XDEBUG 3 ###
+    # Use your client IP here
+    # Linux: run "ip a | grep docker0"
+    # Windows (with WSL2) and Mac: host.docker.internal
+    environment:
+      XDEBUG_CLIENT_HOST: 172.17.0.1
+      XDEBUG_CLIENT_PORT: 9003
+      PHP_IDE_CONFIG: serverName=docker-service-app
+    networks:
+      - docker-service-app-network
+
+  docker-service-app-db:
+    container_name: docker-service-app-db
+    build:
+      context: ./docker/database
+    ports:
+      - 10000:3306
+    environment:
+      MYSQL_DATABASE: database
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - docker-service-app-db-data:/var/lib/mysql
+    networks:
+      - docker-service-app-network
+    command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+
+volumes:
+  docker-service-app-db-data:
+
+networks:
+  docker-service-app-network:
+    external: true
