@@ -1,0 +1,58 @@
+version: '3.5'
+
+services:
+  monolith-service-app-web:
+    container_name: monolith-service-app-web
+    build:
+      context: ./docker/nginx
+      args:
+        UID: $U_ID
+    ports:
+      - 1000:80
+    volumes:
+      - ./public:/appdata/www/public
+    depends_on:
+      - monolith-service-app-be
+    networks:
+      - monolith-service-app-network
+
+  monolith-service-app-be:
+    container_name: monolith-service-app-be
+    build:
+      context: docker/php
+      args:
+        UID: $U_ID
+    volumes:
+      - ./:/appdata/www
+    ###> XDEBUG 3 ###
+    # Use your client IP here
+    # Linux: run "ip a | grep docker0"
+    # Windows (with WSL2) and Mac: host.docker.internal
+    environment:
+      XDEBUG_CLIENT_HOST: 172.17.0.1
+      XDEBUG_CLIENT_PORT: 9003
+      PHP_IDE_CONFIG: serverName=monolith-service-app
+    networks:
+      - monolith-service-app-network
+
+  monolith-service-app-db:
+    container_name: monolith-service-app-db
+    build:
+      context: ./docker/database
+    ports:
+      - 10000:3306
+    environment:
+      MYSQL_DATABASE: database
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - monolith-service-app-db-data:/var/lib/mysql
+    networks:
+      - monolith-service-app-network
+    command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+
+volumes:
+  monolith-service-app-db-data:
+
+networks:
+  monolith-service-app-network:
+    external: true
