@@ -1,4 +1,0 @@
-module_b_controlador_prueba:
-  path: /controlador-prueba
-  controller: ModuleB\Controller\ControladorPrueba
-  methods: [ GET ]

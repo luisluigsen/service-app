@@ -3,6 +3,6 @@ services:
     autowire: true
     autoconfigure: true
 
-  ModuleA\Controller\:
-    resource: '../../src/ModuleA/Controller'
+  Employee\Controller\:
+    resource: '../../src/Employee/Controller'
     tags: ['controller.service_arguments']

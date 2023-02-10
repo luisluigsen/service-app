@@ -1,14 +1,14 @@
 <?php
 
-namespace ModuleA\Controller;
+namespace Customer\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-class ControladorPrueba
+class HealthCheckController
 {
     public function __invoke():Response
     {
-        return new JsonResponse(['message'=> 'Modulo A funciona']);
+        return new JsonResponse(['message'=> 'Module Customer up and running!']);
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace ModuleB\Entity;
+namespace Employee\Entity;
 
-class ModuleB
+class Employee
 {
     public function __construct(
-        private readonly string $id = 'module_b_id'
+        private readonly string $id
     )
     {
     }
