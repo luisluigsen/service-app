@@ -32,7 +32,7 @@ doctrine:
             rent_em:
                 connection: rent_connection
                 mappings:
-                    Employee:
+                    Rent:
                         is_bundle: false
                         type: xml
                         dir: '%kernel.project_dir%/config/orm/mapping/rent'
