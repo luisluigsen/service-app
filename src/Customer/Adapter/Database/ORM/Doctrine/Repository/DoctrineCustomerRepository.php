@@ -1,11 +1,11 @@
 <?php
 
-namespace Customer\Infrastructure\Database\ORM\Doctrine\Repository;
+namespace Customer\Adapter\Database\ORM\Doctrine\Repository;
 
 
+use Customer\Domain\Exception\ResourceNotFoundException;
 use Customer\Domain\Model\Customer;
 use Customer\Domain\Repository\CustomerRepository;
-use Customer\Infrastructure\Database\ORM\Doctrine\Entity\DoctrineCustomer;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Persistence\ObjectManager;
@@ -17,15 +17,21 @@ class DoctrineCustomerRepository implements CustomerRepository
 
     public function __construct(ManagerRegistry $registry)
     {
-        $this->repository = new ServiceEntityRepository($registry, DoctrineCustomer::class);
+        $this->repository = new ServiceEntityRepository($registry, Customer::class);
         $this->manager = $registry->getManager();
     }
 
+    public function findOneByIdOrFail(string $id): Customer
+    {
+        if (null === $customer = $this->repository->find($id)){
+            throw ResourceNotFoundException::createFromClassAndId(Customer::class, $id);
+        }
+
+        return $customer;
+    }
     public function save(Customer $customer): void
     {
-        $doctrineCustomer = DoctrineCustomer::createFromDomainCustomer($customer);
-        
-        $this->manager->persist($doctrineCustomer);
+        $this->manager->persist($customer);
         $this->manager->flush();
     }
 }

@@ -2,12 +2,13 @@ services:
   _defaults:
     autowire: true
     autoconfigure: true
+
   Customer\:
     resource: '../../src/Customer/'
     exclude:
       - '../../src/Customer/Domain/Model/'
       - '../../src/Kernel.php'
       - '../../src/Tests/'
-  Customer\Infrastructure\Controller\Customer\:
-    resource: '../../src/Customer/Infrastructure/Controller/Customer/'
+  Customer\Adapter\Framework\Http\Controller\:
+    resource: '../../src/Customer/Adapter/Framework/Http/Controller/'
     tags: ['controller.service_arguments']

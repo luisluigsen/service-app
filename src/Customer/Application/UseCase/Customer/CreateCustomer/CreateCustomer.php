@@ -1,9 +1,9 @@
 <?php
 
-namespace Customer\Application\CreateCustomer;
+namespace Customer\Application\UseCase\Customer\CreateCustomer;
 
-use Customer\Application\CreateCustomer\DTO\CreateCustomerInputDTO;
-use Customer\Application\CreateCustomer\DTO\CreateCustomerOutputDTO;
+use Customer\Application\UseCase\Customer\CreateCustomer\DTO\CreateCustomerInputDTO;
+use Customer\Application\UseCase\Customer\CreateCustomer\DTO\CreateCustomerOutputDTO;
 use Customer\Domain\Model\Customer;
 use Customer\Domain\Repository\CustomerRepository;
 use Customer\Domain\ValueObject\Uuid;
@@ -14,7 +14,7 @@ class CreateCustomer
     {
     }
 
-    public function __invoke(CreateCustomerInputDTO $dto): CreateCustomerOutputDTO
+    public function handle(CreateCustomerInputDTO $dto): CreateCustomerOutputDTO
     {
         $customer = new Customer(Uuid::random()->value(), $dto->name, $dto->address, $dto->age, $dto->employeeId);
 

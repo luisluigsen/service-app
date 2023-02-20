@@ -1,6 +1,6 @@
 <?php
 
-namespace Customer\Application\CreateCustomer\DTO;
+namespace Customer\Application\UseCase\Customer\CreateCustomer\DTO;
 
 class CreateCustomerOutputDTO
 {
