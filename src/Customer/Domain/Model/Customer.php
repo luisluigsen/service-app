@@ -4,7 +4,7 @@ namespace Customer\Domain\Model;
 
 class Customer
 {
-    public function __construct(
+    private function __construct(
         private readonly string $id,
         private string          $name,
         private string          $address,
@@ -12,6 +12,16 @@ class Customer
         private readonly string $employeeId
     )
     {
+    }
+    public static function create(
+        string $id,
+        string $name,
+        string $address,
+        int $age,
+        string $employeeId
+    ):self
+    {
+        return new static($id, $name, $address, $age, $employeeId);
     }
 
     public function id(): string
