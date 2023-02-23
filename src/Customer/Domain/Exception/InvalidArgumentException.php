@@ -2,7 +2,7 @@
 
 namespace Customer\Domain\Exception;
 
-use \InvalidArgumentException as NativeInvalidArgumentException;
+use InvalidArgumentException as NativeInvalidArgumentException;
 
 class InvalidArgumentException extends NativeInvalidArgumentException
 {
@@ -13,11 +13,11 @@ class InvalidArgumentException extends NativeInvalidArgumentException
 
     public static function  createFromArgument(string $argument):self
     {
-        return new static(sprintf('Invalid arguments [%]', $argument));
+        return new static(sprintf('Invalid arguments [%s]', $argument));
     }
 
-    public static function createFromArray(array $arguments):self
+    public static function createFromArray(array $arguments): self
     {
-        return new static(sprintf('Invalid arguments [%]', implode(',', $arguments)));
+        return new static(\sprintf('Invalid arguments [%s]', \implode(', ', $arguments)));
     }
 }
