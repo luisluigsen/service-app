@@ -23,6 +23,6 @@ jobs:
       - name: buffering time for db container
         uses: jakejarvis/wait-action@master
         with:
-          time: '10s'
+          time: '30s'
       - name: Run tests
         run: make tests
