@@ -20,6 +20,6 @@ class CreateCustomer
 
         $this->repository->save($customer);
 
-        return new CreateCustomerOutputDTO($customer->employeeId());
+        return new CreateCustomerOutputDTO($customer->id());
     }
 }

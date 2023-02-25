@@ -52,7 +52,7 @@ class GetCustomerBtIdTest extends TestCase
         $responseDTO = $this->useCase->handle($inputDto);
 
         self::assertInstanceOf(GetCustomerByIdOutputDTO::class, $responseDTO);
-        
+
         self::assertEquals(self::CUSTOMER_DATA['id'], $responseDTO->id);
         self::assertEquals(self::CUSTOMER_DATA['name'], $responseDTO->name);
         self::assertEquals(self::CUSTOMER_DATA['address'], $responseDTO->address);
