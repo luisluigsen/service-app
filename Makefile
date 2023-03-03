@@ -39,10 +39,10 @@ composer-install: ## Installs composer dependencies
 
 .PHONY: migrations
 migrations: ## Run migrations for dev/prod environments
-	U_ID=${UID} docker exec --user ${UID} ${DOCKER_BE} bin/console doctrine:migration:migrate -n
+	U_ID=${UID} docker exec --user ${UID} ${DOCKER_BE} bin/console doctrine:migrations:migrate -n
 
 migrations-test: ## Run migrations for test environments
-	U_ID=${UID} docker exec --user ${UID} ${DOCKER_BE} bin/console doctrine:migration:migrate -n --env=test
+	U_ID=${UID} docker exec --user ${UID} ${DOCKER_BE} bin/console doctrine:migrations:migrate -n --env=test
 
 be-logs: ## Tails the Symfony dev log
 	U_ID=${UID} docker exec --user ${UID} ${DOCKER_BE} tail -f var/log/dev.log

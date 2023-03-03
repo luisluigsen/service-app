@@ -42,7 +42,7 @@ services:
     ports:
       - 10000:3306
     environment:
-      MYSQL_DATABASE: employee_db
+      MYSQL_DATABASE: customer_db
       MYSQL_ROOT_PASSWORD: root
     volumes:
       - monolith-service-app-db-data:/var/lib/mysql
