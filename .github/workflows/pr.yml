@@ -18,9 +18,9 @@ jobs:
         run: make start && make composer-install
 #      - name: Run coding style check
 #        run: make code-style-check
-      - name: buffering time for db container
+      - name: Sleep for 30 seconds
         uses: jakejarvis/wait-action@master
         with:
-          time: '10s'
+          time: '30s'
       - name: Run tests
         run: make migrations-test && make tests
