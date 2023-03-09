@@ -57,5 +57,3 @@ code-style: ## Runs php-cs to fix code styling following Symfony rules
 .PHONY: tests
 tests:
 	U_ID=${UID} docker exec --user ${UID} ${DOCKER_BE} vendor/bin/simple-phpunit -c phpunit.xml.dist
-
-.PHONY: migrations

@@ -14,7 +14,7 @@ class UpdateCustomerInputDTOTest extends TestCase
         'name'=> 'Brian',
         'address' => 'Fake Street 123',
         'age'=> 32,
-        'employeeId'=> '3179b695-f3f0-4e88-b7a2-ef40da41d000'
+        'keys'=>[]
     ];
 
     public function testCreateDTO(): void
@@ -23,7 +23,8 @@ class UpdateCustomerInputDTOTest extends TestCase
             self::DATA['id'],
             self::DATA['name'],
             self::DATA['address'],
-            self::DATA['age']
+            self::DATA['age'],
+            self::DATA['keys']
         );
 
         self::assertInstanceOf(UpdateCustomerInputDTO::class, $dto);
@@ -37,19 +38,8 @@ class UpdateCustomerInputDTOTest extends TestCase
             null,
             self::DATA['name'],
             self::DATA['address'],
-            self::DATA['age']
-        );
-    }
-
-    public function testCreateWithNullAge(): void
-    {
-        self::expectException(InvalidArgumentException::class);
-
-        UpdateCustomerInputDTO::create(
-            self::DATA['id'],
-            self::DATA['name'],
-            self::DATA['address'],
-            null
+            self::DATA['age'],
+            self::DATA['keys']
         );
     }
 
@@ -61,7 +51,8 @@ class UpdateCustomerInputDTOTest extends TestCase
             self::DATA['id'],
             self::DATA['name'],
             self::DATA['address'],
-            2
+            2,
+            self::DATA['keys']
         );
     }
 }
