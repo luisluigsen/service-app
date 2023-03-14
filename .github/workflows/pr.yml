@@ -17,9 +17,7 @@ jobs:
       - name: replace .env for testing
         run: rm .env && cp -n .env.test .env
       - name: Prepare containers
-        run: make start && make composer-install
-#      - name: Run coding style check
-#        run: make code-style-check
+        run: make build && make start && make composer-install
       - name: Sleep for 30 seconds
         uses: jakejarvis/wait-action@master
         with:
