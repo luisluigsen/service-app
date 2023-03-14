@@ -7,8 +7,8 @@ use Customer\Application\UseCase\Customer\CreateCustomer\DTO\CreateCustomerInput
 use Customer\Application\UseCase\Customer\CreateCustomer\DTO\CreateCustomerOutputDTO;
 use Customer\Domain\Model\Customer;
 use Customer\Domain\Repository\CustomerRepository;
-use Doctrine\Bundle\DoctrineBundle\Tests\TestCase;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 
 class CreateCustomerTest extends TestCase
 {
