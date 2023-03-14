@@ -42,7 +42,7 @@ services:
     ports:
       - 10000:3306
     environment:
-      MYSQL_DATABASE: employee_db
+      MYSQL_DATABASE: customer_db
       MYSQL_ROOT_PASSWORD: root
     volumes:
       - monolith-service-app-db-data:/var/lib/mysql
@@ -50,9 +50,9 @@ services:
       - monolith-service-app-network
     command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
 
-volumes:
-  monolith-service-app-db-data:
-
 networks:
   monolith-service-app-network:
     external: true
+
+volumes:
+  monolith-service-app-db-data:

@@ -33,26 +33,32 @@ prepare: ## Runs backend commands
 	$(MAKE) migrations
 	$(MAKE) migrations-test
 
+run: ## starts the Symfony development server in detached mode
+	U_ID=${UID} docker exec -it --user ${UID} ${DOCKER_BE} symfony serve -d
+
+logs: ## Show Symfony logs in real time
+	U_ID=${UID} docker exec -it --user ${UID} ${DOCKER_BE} symfony server:log
+
 # Backend commands
 composer-install: ## Installs composer dependencies
 	U_ID=${UID} docker exec --user ${UID} ${DOCKER_BE} composer install --no-interaction
 
-.PHONY: migrations
+.PHONY: migrations migrations-test
 migrations: ## Run migrations for dev/prod environments
-	U_ID=${UID} docker exec --user ${UID} ${DOCKER_BE} bin/console doctrine:migrations:migrate -n
+	U_ID=${UID} docker exec --user ${UID} ${DOCKER_BE} bin/console doctrine:migration:migrate -n
 
 migrations-test: ## Run migrations for test environments
-	U_ID=${UID} docker exec --user ${UID} ${DOCKER_BE} bin/console doctrine:migrations:migrate -n --env=test
+	U_ID=${UID} docker exec --user ${UID} ${DOCKER_BE} bin/console doctrine:migration:migrate -n --env=test
 
-be-logs: ## Tails the Symfony dev log
-	U_ID=${UID} docker exec --user ${UID} ${DOCKER_BE} tail -f var/log/dev.log
+code-style:
+	U_ID=${UID} docker exec --user ${UID} ${DOCKER_BE} vendor/bin/php-cs-fixer fix src --rules=@Symfony
+
+code-style-check:
+	U_ID=${UID} docker exec --user ${UID} ${DOCKER_BE} vendor/bin/php-cs-fixer fix src --rules=@Symfony --dry-run
 # End backend commands
 
 ssh-be: ## bash into the be container
 	U_ID=${UID} docker exec -it --user ${UID} ${DOCKER_BE} bash
-
-code-style: ## Runs php-cs to fix code styling following Symfony rules
-	U_ID=${UID} docker exec --user ${UID} ${DOCKER_BE} php-cs-fixer fix src --rules=@Symfony
 
 .PHONY: tests
 tests:
