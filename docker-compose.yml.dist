@@ -52,8 +52,9 @@ services:
       - monolith-service-app-network
     command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
 
+volumes:
+  monolith-service-app-db-data:
+
 networks:
   monolith-service-app-network:
 
-volumes:
-  monolith-service-app-db-data:
