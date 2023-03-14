@@ -18,7 +18,7 @@ jobs:
         run: rm .env && cp -n .env.test .env
       - name: Prepare containers
         run: make build && make start && make composer-install
-      - name: Sleep for 30 seconds
+      - name: buffering time for db container
         uses: jakejarvis/wait-action@master
         with:
           time: '30s'
