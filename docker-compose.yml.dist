@@ -34,6 +34,8 @@ services:
       PHP_IDE_CONFIG: serverName=monolith-service-app
     networks:
       - monolith-service-app-network
+    depends_on:
+      - monolith-service-app-db
 
   monolith-service-app-db:
     container_name: monolith-service-app-db
@@ -52,7 +54,6 @@ services:
 
 networks:
   monolith-service-app-network:
-    external: true
 
 volumes:
   monolith-service-app-db-data:
