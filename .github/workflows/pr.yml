@@ -1,0 +1,26 @@
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  app_checks:
+    name: app checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Pull docker-compose
+        run: docker-compose -f docker-compose.yml.dist pull
+      - uses: satackey/action-docker-layer-caching@v0.0.11
+        continue-on-error: true
+      - name: replace .env for testing
+        run: rm .env && cp -n .env.test .env
+      - name: Prepare containers
+        run: make build && make start && make composer-install
+      - name: buffering time for db container
+        uses: jakejarvis/wait-action@master
+        with:
+          time: '30s'
+      - name: Run tests
+        run: make migrations-test && make tests

@@ -1,0 +1,5 @@
+doctrine_migrations:
+    em: 'customer_em'
+    migrations_paths:
+        'DoctrineMigrations': '%kernel.project_dir%/migrations/dev'
+    enable_profiler: false

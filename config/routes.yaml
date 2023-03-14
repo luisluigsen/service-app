@@ -1,0 +1,11 @@
+employee:
+  resource: 'routes/customer.yaml'
+  prefix: 'customer'
+
+customer:
+  resource: 'routes/employee.yaml'
+  prefix: 'employee'
+
+rent:
+  resource: 'routes/rent.yaml'
+  prefix: 'rent'
